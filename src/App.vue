@@ -1,85 +1,83 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <main>
+    <div class="box">
+      <div class="bar grow1"></div>
+      <div class="bar grow2"></div>
+      <div class="bar grow3"></div>
+      <div class=" blinking"></div>
     </div>
-  </header>
-
-  <RouterView />
+  </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+</script>
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+<<style lang="scss">
+.box {
+  height: 100%;
 }
+.bar {
+  width: 4px;
+  border-radius: 4px;
+  background-image: linear-gradient(180deg, #45E7FF 0, rgba(0,135,255,0) 100%);
+  position: absolute;
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  &.grow1 {
+    top: 100px;
+    left: 200px;
+    animation: grow 1.5s ease-out forwards;
+    animation-delay: 0.5s;
+    transform-origin: bottom;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  &.grow2 {
+    top: 150px;
+    left: 350px;
+    animation: grow 1.5s ease-out forwards;
+    animation-delay: 1s;
+    transform-origin: bottom;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  &.grow3 {
+    top: 150px;
+    left: 500px;
+    animation: grow 1.5s ease-out forwards;
+    animation-delay: 1.5s;
+    transform-origin: bottom;
   }
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
+  &.grow4 {
+    top: 50px;
+    left: 650px;
+    animation: grow 1.5s ease-out forwards;
+    animation-delay: 2s;
+    transform-origin: bottom;
+  }
+}
 
-    padding: 1rem 0;
-    margin-top: 1rem;
+
+/* 将动画应用于需要闪烁的元素 */
+.blinking {
+  animation: blink 1s infinite;
+}
+
+
+@keyframes grow {
+  from {
+    height: 200px;
+    transform: scaleY(0);
+  }
+  to {
+    height: 200px;
+    transform: scaleY(1);
+  }
+}
+
+/* 定义闪烁动画效果 */
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
 }
 </style>

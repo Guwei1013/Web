@@ -1,0 +1,35 @@
+.chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 500px;
+    height: 300px;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.bar {
+    width: 40px;
+    background-color: steelblue;
+    transition: height 0.5s ease-in-out;
+}
+
+.bar::after {
+    content: attr(data-value);
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+
+@keyframes animateBars {
+    from { height: 0; }
+    to { height: calc(var(--value) * 2px); }
+}
+
+.bar:nth-child(1) { animation: animateBars 0.5s 0.1s forwards; }
+.bar:nth-child(2) { animation: animateBars 0.5s 0.2s forwards; }
+.bar:nth-child(3) { animation: animateBars 0.5s 0.3s forwards; }
+.bar:nth-child(4) { animation: animateBars 0.5s 0.4s forwards; }
+.bar:nth-child(5) { animation: animateBars 0.5s 0.5s forwards; }
+.bar:nth-child(6) { animation: animateBars 0.5s 0.6s forwards; }
+.bar:nth-child(7) { animation: animateBars 0.5s 0.7s forwards; }
