@@ -1,5 +1,6 @@
 // 获取容器
 const rainContainer = document.getElementById('rain');
+let isA = true;
 
 // 生成雨滴
 function createRainDrop() {
@@ -26,5 +27,12 @@ function createRainDrop() {
   });
 }
 
-// 定时生成雨滴
-setInterval(createRainDrop, 50); // 生成雨滴的时间间隔改为 50ms
+function loop() {
+  if (isA) {
+    createRainDrop();
+    requestAnimationFrame(loop);
+  }
+}
+
+
+requestAnimationFrame(loop);

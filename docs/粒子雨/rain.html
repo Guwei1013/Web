@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Particle Rain Animation</title>
+  <style>
+      body {
+          margin: 0;
+          overflow: hidden;
+          background: #051338;
+      }
+      canvas {
+          display: block;
+      }
+  </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+  var numParticles = 100; // 粒子数量减半
+
+  // 设置画布大小
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // 创建随机粒子
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      speed: Math.random() * 4 + 2, // 随机速度
+      length: 50, // 长度范围增大
+      width: 5, // 宽度范围增大
+      radius: 5, // 固定圆角半径
+      color: createGradient() // 渐变色
+    };
+  }
+
+  // 创建线性渐变
+  function createGradient() {
+    var gradient = ctx.createLinearGradient(0, 1, 0, 0);
+    gradient.addColorStop(0, '#45E7FF'); // 淡蓝色
+    gradient.addColorStop(1, 'rgba(0,135,255,0)'); // 淡蓝色，透明度更低
+    return gradient;
+  }
+
+  // 更新粒子位置
+  function updateParticle(particle) {
+    particle.y -= particle.speed; // 从下往上运动
+    if (particle.y < 0) {
+      particle.y = canvas.height; // 当粒子超出画布上边界时，重新放置在画布下边界
+      particle.x = Math.random() * canvas.width; // 随机位置
+    }
+  }
+
+  // 绘制粒子
+  function drawParticle(particle) {
+    ctx.fillStyle = particle.color;
+    ctx.roundRect(particle.x, particle.y, particle.width, particle.length, particle.radius); // 绘制带有圆角的矩形
+    ctx.fill();
+  }
+
+  // 添加 ctx.roundRect 方法
+  CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius) {
+    if (width < 2 * radius) radius = width / 2;
+    if (height < 2 * radius) radius = height / 2;
+    this.beginPath();
+    this.moveTo(x + radius, y);
+    this.arcTo(x + width, y, x + width, y + height, radius);
+    this.arcTo(x + width, y + height, x, y + height, radius);
+    this.arcTo(x, y + height, x, y, radius);
+    this.arcTo(x, y, x + width, y, radius);
+    this.closePath();
+    return this;
+  }
+
+  // 创建粒子
+  for (var i = 0; i < numParticles; i++) {
+    particles.push(createParticle());
+  }
+
+  // 更新和绘制粒子
+  function updateAndDrawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(function(particle) {
+      updateParticle(particle);
+      drawParticle(particle);
+    });
+
+    requestAnimationFrame(updateAndDrawParticles); // 继续请求下一帧
+  }
+
+  // 启动动画
+  updateAndDrawParticles();
+</script>
+</body>
+</html>

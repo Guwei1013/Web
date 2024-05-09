@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter Animation with Thousands Separator</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-color: #f0f0f0;
+      }
+
+      #counter {
+          font-size: 48px;
+          color: #333;
+      }
+  </style>
+</head>
+<body>
+<div id="counter">0</div>
+
+<script>
+  // 获取计数器元素
+  var counterElement = document.getElementById('counter');
+
+  // 设置初始值和目标值
+  var initialValue = 0;
+  var targetValue = 12345678; // 设置目标值为 100 万
+
+  // 设置动画持续时间
+  var duration = 1500; // 2 秒
+
+  // 记录动画开始时间
+  var startTime = null;
+
+  // 定义更新函数
+  function updateCounter(timestamp) {
+    if (!startTime) {
+      startTime = timestamp; // 记录动画开始时间
+    }
+
+    var progress = timestamp - startTime; // 计算动画进度
+
+    // 计算当前数字
+    var currentNumber = Math.round(initialValue + (targetValue - initialValue) * progress / duration);
+
+    // 更新显示的数字
+    counterElement.textContent = formatNumber(currentNumber);
+
+    // 当动画未结束时，继续请求下一帧
+    if (progress < duration) {
+      requestAnimationFrame(updateCounter);
+    } else {
+      // 动画结束时确保最终值准确显示
+      counterElement.textContent = formatNumber(targetValue);
+    }
+  }
+
+  // 启动动画
+  requestAnimationFrame(updateCounter);
+
+  // 格式化数字为包含千分符的字符串
+  function formatNumber(number) {
+    return number.toLocaleString('en-US');
+  }
+</script>
+</body>
+</html>
