@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+      .scroll-container {
+          width: 200px;
+          height: 200px;
+          background: skyblue;
+          overflow: scroll;
+      }
+
+      /* 设置滚动条的整体样式 */
+      .scroll-container::-webkit-scrollbar {
+          width: 10px;
+      }
+
+
+      /* 设置滚动条轨道的样式 */
+      .scroll-container::-webkit-scrollbar-track {
+          background-color: blue; /* 设置轨道背景色 */
+      }
+
+      /* 设置滚动条滑块的样式 */
+      .scroll-container::-webkit-scrollbar-thumb {
+          background-color: #333;
+          border-radius: 5px;
+      }
+
+      /* 设置鼠标悬停时滚动条滑块的样式 */
+      .scroll-container::-webkit-scrollbar-thumb:hover {
+          background-color: rgba(0,0,0,0.5); /* 设置鼠标悬停时滑块颜色 */
+      }
+
+      .child {
+          width: 220px;
+          height: 220px;
+      }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="scroll-container">
+      <div class="child"></div>
+    </div>
+  </div>
+</body>
+</html>
